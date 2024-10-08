@@ -32,7 +32,6 @@
 - **User** is the individual or a legal entity that uses the **System**.
 - **User account** is **user record** in the System.
 - **Conference organizer** is a user that organizes the **conference**.
-- **Admin** is an administrator of the **System**.
 - **Speaker** is a **user** who gives a **talk**.
 - **Listener** is a **user** listening to a **talk**.
 - **User status** can be:
@@ -42,7 +41,6 @@
 ### Registration
 - **Register a user** - create **user account**.
 - **Registration request** - a request sent by a **user** to the **System** for **registration**.
-- **Admin registration request** - a special form of request sent by a **user** to the **System** for **registration as an admin**.
 - **Register a conference** - create **conference record**.\
   Accompanied by the issuance of the **organizer role** to the corresponding **user**.
 - **Register a talk** - create **talk record**.\
