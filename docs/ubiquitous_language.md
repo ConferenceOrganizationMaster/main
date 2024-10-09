@@ -34,9 +34,6 @@
 - **Conference organizer** is a user that organizes the **conference**.
 - **Speaker** is a **user** who gives a **talk**.
 - **Listener** is a **user** listening to a **talk**.
-- **User status** can be:
-  - **Default** - default status of the **user**
-  - **Blocked** - **user** has been blocked.
 
 ### Registration
 - **Register a user** - create **user account**.
