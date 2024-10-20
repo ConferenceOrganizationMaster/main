@@ -1,4 +1,4 @@
-package com.bulatmain.conference.domain.common.value.email.exception;
+package com.bulatmain.conference.domain.user.value.exception;
 
 public class IllegalEmailException extends Throwable {
     public IllegalEmailException(String format) {

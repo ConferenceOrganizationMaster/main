@@ -1,4 +1,4 @@
-package com.bulatmain.conference.domain.common.value.name.exception;
+package com.bulatmain.conference.domain.user.value.exception;
 
 public class IllegalNameException extends RuntimeException {
     public IllegalNameException(String format) {

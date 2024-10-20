@@ -1,4 +1,4 @@
-package com.bulatmain.conference.domain.common.value.password.exception;
+package com.bulatmain.conference.domain.user.value.exception;
 
 public class InvalidPasswordException extends RuntimeException {
     public InvalidPasswordException(String format) {

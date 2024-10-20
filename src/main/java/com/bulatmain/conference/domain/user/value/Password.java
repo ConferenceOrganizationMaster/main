@@ -1,4 +1,4 @@
-package com.bulatmain.conference.domain.common.value.password;
+package com.bulatmain.conference.domain.user.value;
 
 public interface Password {
     boolean sameAs(String raw);

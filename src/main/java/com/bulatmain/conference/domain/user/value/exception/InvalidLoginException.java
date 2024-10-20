@@ -1,4 +1,4 @@
-package com.bulatmain.conference.domain.common.value.login.exception;
+package com.bulatmain.conference.domain.user.value.exception;
 
 public class InvalidLoginException extends Throwable {
     public InvalidLoginException(String format) {

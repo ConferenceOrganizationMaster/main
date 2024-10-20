@@ -1,7 +1,7 @@
 package com.bulatmain.conference.domain.user.entity;
 
-import com.bulatmain.conference.domain.common.value.login.Login;
-import com.bulatmain.conference.domain.common.value.password.Password;
+import com.bulatmain.conference.domain.user.value.Login;
+import com.bulatmain.conference.domain.user.value.Password;
 import com.bulatmain.conference.domain.user.value.UserDetail;
 import com.bulatmain.conference.domain.user.value.UserId;
 import lombok.Getter;

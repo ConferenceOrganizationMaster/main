@@ -1,6 +1,6 @@
-package com.bulatmain.conference.domain.common.value.name;
+package com.bulatmain.conference.domain.user.value;
 
-import com.bulatmain.conference.domain.common.value.name.exception.IllegalNameException;
+import com.bulatmain.conference.domain.user.value.exception.IllegalNameException;
 import com.bulatmain.conference.domain.common.value.validator.Validator;
 import lombok.Getter;
 

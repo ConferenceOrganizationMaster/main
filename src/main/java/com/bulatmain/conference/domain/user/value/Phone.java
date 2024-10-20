@@ -1,6 +1,6 @@
-package com.bulatmain.conference.domain.common.value.phone;
+package com.bulatmain.conference.domain.user.value;
 
-import com.bulatmain.conference.domain.common.value.phone.exception.IllegalPhoneException;
+import com.bulatmain.conference.domain.user.value.exception.IllegalPhoneException;
 import com.bulatmain.conference.domain.common.value.validator.Validator;
 import lombok.Getter;
 
