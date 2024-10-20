@@ -1,4 +1,4 @@
-package com.bulatmain.conference.application.config;
+package com.bulatmain.conference.config;
 
 import com.bulatmain.conference.application.usecase.UserRegistrationUC;
 import com.bulatmain.conference.application.usecase.impl.UserRegistrationUCImpl;
