@@ -1,6 +1,7 @@
 package com.bulatmain.conference.domain.common.value.name;
 
 import com.bulatmain.conference.domain.common.value.name.exception.IllegalNameException;
+import com.bulatmain.conference.domain.common.value.validator.Validator;
 import lombok.Getter;
 
 import java.util.Scanner;
@@ -15,17 +16,17 @@ public class Name {
         this.surname = surname;
     }
 
-    public static Name build(String fullName) throws IllegalNameException {
+    public static Name build(String fullName, Validator<String> validator) throws IllegalNameException {
+        if (!validator.check(fullName)) {
+            throw new IllegalNameException(
+                    String.format("Error: invalid full name: %s.\nFull name should consist of name and surname", fullName)
+            );
+        }
         Pair<String, String> pair = splitFullName(fullName);
         return new Name(pair.first, pair.second);
     }
 
     private static Pair<String, String> splitFullName(String fullName) throws IllegalNameException {
-        if (!fullName.matches(" *\\w* *\\w* *")) {
-            throw new IllegalNameException(
-                    String.format("Error: invalid full name: %s.\nFull name should consist of name and surname", fullName)
-            );
-        }
         Scanner scanner = new Scanner(fullName);
         return new Pair<String, String>(
                 scanner.next("\\w"),

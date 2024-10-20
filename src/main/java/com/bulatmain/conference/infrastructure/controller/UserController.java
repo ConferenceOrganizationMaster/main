@@ -3,6 +3,7 @@ package com.bulatmain.conference.infrastructure.controller;
 import com.bulatmain.conference.application.model.UserDTO;
 import com.bulatmain.conference.application.model.UserRegistrationRequestData;
 import com.bulatmain.conference.application.usecase.UserRegistrationUC;
+import com.bulatmain.conference.application.usecase.impl.exception.*;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -29,8 +30,16 @@ public class UserController {
         try {
             userRegistrationUC.execute(request);
             return new ResponseEntity<>(HttpStatus.CREATED);
+        } catch (UserAlreadyExistsException e) {
+            return new ResponseEntity<>("Error: user with such email already exists.", HttpStatus.BAD_REQUEST);
+        } catch (InvalidEmailException e) {
+            return new ResponseEntity<>("Error: invalid email passed.", HttpStatus.BAD_REQUEST);
+        } catch (InvalidLoginException e) {
+            return new ResponseEntity<>("Error: invalid login passed.", HttpStatus.BAD_REQUEST);
+        } catch (InvalidPasswordException e) {
+            return new ResponseEntity<>("Error: invalid password passed.", HttpStatus.BAD_REQUEST);
         } catch (Exception e) {
-            return new ResponseEntity<>(e.toString(), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("Unknown error.", HttpStatus.BAD_REQUEST);
         }
     }
 

@@ -2,7 +2,9 @@ package com.bulatmain.conference.domain.common.value.login;
 
 import com.bulatmain.conference.domain.common.value.login.exception.InvalidLoginException;
 import com.bulatmain.conference.domain.common.value.validator.Validator;
+import lombok.Getter;
 
+@Getter
 public class Login {
     private final String record;
 

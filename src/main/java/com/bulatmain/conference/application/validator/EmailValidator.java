@@ -1,4 +1,4 @@
-package com.bulatmain.conference.domain.common.value.email;
+package com.bulatmain.conference.application.validator;
 
 import com.bulatmain.conference.domain.common.value.validator.Validator;
 

@@ -2,9 +2,11 @@ package com.bulatmain.conference.domain.common.value.email;
 
 import com.bulatmain.conference.domain.common.value.email.exception.IllegalEmailException;
 import com.bulatmain.conference.domain.common.value.validator.Validator;
+import lombok.Getter;
 
+@Getter
 public class Email {
-    private static String record;
+    private final String record;
 
     public Email build(String record, Validator<String> validator) throws IllegalEmailException {
         if (validator.check(record)) {

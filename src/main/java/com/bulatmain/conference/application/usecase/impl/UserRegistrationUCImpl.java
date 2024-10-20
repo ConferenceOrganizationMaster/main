@@ -1,18 +1,12 @@
 package com.bulatmain.conference.application.usecase.impl;
 
-import com.bulatmain.conference.application.model.UserDTO;
 import com.bulatmain.conference.application.model.UserRegistrationRequestData;
 import com.bulatmain.conference.application.port.UserGateway;
 import com.bulatmain.conference.application.usecase.UserRegistrationUC;
-import com.bulatmain.conference.application.usecase.impl.exception.UnsuccessfulRegisterAttempt;
-import com.bulatmain.conference.application.validator.KasperskyPasswordReqsValidator;
-import com.bulatmain.conference.domain.common.value.email.EmailValidator;
-import com.bulatmain.conference.domain.common.value.login.DefaultLoginValidator;
+import com.bulatmain.conference.application.usecase.impl.exception.*;
 import com.bulatmain.conference.domain.common.value.validator.Validator;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-
-import java.util.Optional;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -33,10 +27,11 @@ public class UserRegistrationUCImpl implements UserRegistrationUC {
     void checkNoUserWithSuchEmail(String email) throws UnsuccessfulRegisterAttempt {
         var userOpt = userGateway.findUserByEmail(email);
         if (userOpt.isPresent()) {
-            throwAndLogMessage(String.format(
+            throwAndLogFormatMessage(
+                    UserAlreadyExistsException.class,
                     "Unsuccessful attempt to register: user with email %s already exist",
                     email
-            ));
+            );
         }
     }
 
@@ -45,27 +40,49 @@ public class UserRegistrationUCImpl implements UserRegistrationUC {
         var login = requestData.getLogin();
         var password = requestData.getPassword();
         if (!emailValidator.check(email)) {
-            throwAndLogMessage(String.format(
+            throwAndLogFormatMessage(
+                    InvalidEmailException.class,
                     "Unsuccessful attempt to register: invalid email: %s",
                     email
-            ));
+            );
         }
         if (!loginValidator.check(login)) {
-            throwAndLogMessage(String.format(
+            throwAndLogFormatMessage(
+                    InvalidLoginException.class,
                     "Unsuccessful attempt to register: invalid login: %s",
                     login
-            ));
+            );
         }
         if (!passwordValidator.check(password)) {
-            throwAndLogMessage(String.format(
+            throwAndLogFormatMessage(
+                    InvalidPasswordException.class,
                     "Unsuccessful attempt to register: invalid password: %s",
                     password
-            ));
+            );
         }
     }
 
-    void throwAndLogMessage(String message) throws UnsuccessfulRegisterAttempt {
-        log.debug(message);
-        throw new UnsuccessfulRegisterAttempt(message);
+    void throwAndLogFormatMessage(
+            Class<? extends UnsuccessfulRegisterAttempt> exceptionClass,
+            String formatMessage, Object... objects)
+            throws UnsuccessfulRegisterAttempt {
+        throwAndLogMessage(exceptionClass, String.format(
+                formatMessage,
+                objects)
+        );
+    }
+
+    void throwAndLogMessage(Class<? extends UnsuccessfulRegisterAttempt> exceptionClass, String message)
+            throws UnsuccessfulRegisterAttempt {
+        UnsuccessfulRegisterAttempt exception;
+        try {
+            log.debug(message);
+            exception = exceptionClass
+                    .getDeclaredConstructor(String.class)
+                    .newInstance(message);
+        } catch (Exception thrown) {
+            throw new RuntimeException(thrown);
+        }
+        throw exception;
     }
 }
