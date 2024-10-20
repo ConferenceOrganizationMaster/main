@@ -8,4 +8,6 @@ public interface UserGateway {
     Optional<UserDTO> findUserByEmail(String email);
 
     void register(UserDTO requestData);
+
+    void update(UserDTO userDTO);
 }

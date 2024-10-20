@@ -2,15 +2,17 @@ package com.bulatmain.conference.application.usecase.impl;
 
 import com.bulatmain.conference.application.model.UserRegistrationRequestData;
 import com.bulatmain.conference.application.port.UserGateway;
+import com.bulatmain.conference.application.usecase.UseCase;
 import com.bulatmain.conference.application.usecase.UserRegistrationUC;
 import com.bulatmain.conference.application.usecase.impl.exception.*;
 import com.bulatmain.conference.domain.common.value.Validator;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
 @RequiredArgsConstructor
-public class UserRegistrationUCImpl implements UserRegistrationUC {
+public class UserRegistrationUCImpl
+        extends UseCase
+        implements UserRegistrationUC {
 
     private final UserGateway userGateway;
     private final Validator<String> emailValidator;
@@ -18,13 +20,13 @@ public class UserRegistrationUCImpl implements UserRegistrationUC {
     private final Validator<String> passwordValidator;
 
     @Override
-    public void execute(UserRegistrationRequestData requestData) throws UnsuccessfulRegisterAttempt {
+    public void execute(UserRegistrationRequestData requestData) throws UseCaseException {
         checkNoUserWithSuchEmail(requestData.getEmail());
         checkFieldsValidity(requestData);
         userGateway.register(requestData.toDTO());
     }
 
-    void checkNoUserWithSuchEmail(String email) throws UnsuccessfulRegisterAttempt {
+    void checkNoUserWithSuchEmail(String email) throws UseCaseException {
         var userOpt = userGateway.findUserByEmail(email);
         if (userOpt.isPresent()) {
             throwAndLogFormatMessage(
@@ -35,7 +37,7 @@ public class UserRegistrationUCImpl implements UserRegistrationUC {
         }
     }
 
-    void checkFieldsValidity(UserRegistrationRequestData requestData) throws UnsuccessfulRegisterAttempt{
+    void checkFieldsValidity(UserRegistrationRequestData requestData) throws UseCaseException{
         var email = requestData.getEmail();
         var login = requestData.getLogin();
         var password = requestData.getPassword();
@@ -62,27 +64,4 @@ public class UserRegistrationUCImpl implements UserRegistrationUC {
         }
     }
 
-    void throwAndLogFormatMessage(
-            Class<? extends UnsuccessfulRegisterAttempt> exceptionClass,
-            String formatMessage, Object... objects)
-            throws UnsuccessfulRegisterAttempt {
-        throwAndLogMessage(exceptionClass, String.format(
-                formatMessage,
-                objects)
-        );
-    }
-
-    void throwAndLogMessage(Class<? extends UnsuccessfulRegisterAttempt> exceptionClass, String message)
-            throws UnsuccessfulRegisterAttempt {
-        UnsuccessfulRegisterAttempt exception;
-        try {
-            log.debug(message);
-            exception = exceptionClass
-                    .getDeclaredConstructor(String.class)
-                    .newInstance(message);
-        } catch (Exception thrown) {
-            throw new RuntimeException(thrown);
-        }
-        throw exception;
-    }
 }
