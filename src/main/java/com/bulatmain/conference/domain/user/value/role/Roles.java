@@ -30,6 +30,10 @@ public class Roles {
         this.roles.addAll(roles);
     }
 
+    public Collection<Role> getCollection() {
+        return roles;
+    }
+
     public boolean has(Class<? extends Role> roleClass) {
         return roles.stream().anyMatch(role ->
                 Objects.equals(role.getClass(), roleClass)

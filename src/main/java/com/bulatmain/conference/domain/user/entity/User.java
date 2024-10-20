@@ -1,5 +1,6 @@
 package com.bulatmain.conference.domain.user.entity;
 
+import com.bulatmain.conference.domain.user.value.Email;
 import com.bulatmain.conference.domain.user.value.Login;
 import com.bulatmain.conference.domain.user.value.Password;
 import com.bulatmain.conference.domain.user.value.detail.UserDetail;
@@ -14,21 +15,30 @@ import java.util.List;
 @Getter
 @Setter
 public class User {
+    @Getter
     private final UserId id;
+    @Getter
     private Login login;
+    @Getter
     private Password password;
+    @Getter
     private UserDetail detail;
+    @Getter
     private Roles roles;
+
+    public void addRole(Role role) {
+        roles.add(role);
+    }
 
     public boolean hasRole(Class<? extends Role> roleClass) {
         return roles.has(roleClass);
     }
 
-    public User build(UserId id, Login login, Password password) {
+    public static User build(UserId id, Login login, Password password) {
         return build(id, login, password, null);
     }
 
-    public User build(UserId id, Login login, Password password, UserDetail userDetail) {
+    public static User build(UserId id, Login login, Password password, UserDetail userDetail) {
         return new User(id, login, password, userDetail);
     }
 
@@ -39,6 +49,9 @@ public class User {
         this.detail = detail;
     }
 
+    public Email getEmail() {
+        return id.email();
+    }
 
 
 }
