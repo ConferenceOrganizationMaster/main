@@ -2,7 +2,7 @@ package com.bulatmain.conference.application;
 
 import com.bulatmain.conference.domain.user.value.Password;
 import com.bulatmain.conference.domain.user.value.exception.InvalidPasswordException;
-import com.bulatmain.conference.domain.common.value.validator.Validator;
+import com.bulatmain.conference.domain.common.value.Validator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 

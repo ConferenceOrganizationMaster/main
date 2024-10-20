@@ -1,7 +1,7 @@
-package com.bulatmain.conference.domain.user.value;
+package com.bulatmain.conference.domain.user.value.detail;
 
-import com.bulatmain.conference.domain.user.value.exception.IllegalPhoneException;
-import com.bulatmain.conference.domain.common.value.validator.Validator;
+import com.bulatmain.conference.domain.user.value.detail.exception.IllegalPhoneException;
+import com.bulatmain.conference.domain.common.value.Validator;
 import lombok.Getter;
 
 @Getter

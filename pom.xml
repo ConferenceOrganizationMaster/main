@@ -63,6 +63,16 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>joda-time</groupId>
+			<artifactId>joda-time</artifactId>
+			<version>2.13.0</version>
+		</dependency>
+		<dependency>
+			<groupId>dev.mccue</groupId>
+			<artifactId>guava-collect</artifactId>
+			<version>33.2.0</version>
+		</dependency>
 	</dependencies>
 
 	<build>

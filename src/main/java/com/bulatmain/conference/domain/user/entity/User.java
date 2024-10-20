@@ -2,10 +2,14 @@ package com.bulatmain.conference.domain.user.entity;
 
 import com.bulatmain.conference.domain.user.value.Login;
 import com.bulatmain.conference.domain.user.value.Password;
-import com.bulatmain.conference.domain.user.value.UserDetail;
+import com.bulatmain.conference.domain.user.value.detail.UserDetail;
 import com.bulatmain.conference.domain.user.value.UserId;
+import com.bulatmain.conference.domain.user.value.role.Role;
+import com.bulatmain.conference.domain.user.value.role.Roles;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.List;
 
 @Getter
 @Setter
@@ -14,6 +18,11 @@ public class User {
     private Login login;
     private Password password;
     private UserDetail detail;
+    private Roles roles;
+
+    public boolean hasRole(Class<? extends Role> roleClass) {
+        return roles.has(roleClass);
+    }
 
     public User build(UserId id, Login login, Password password) {
         return build(id, login, password, null);

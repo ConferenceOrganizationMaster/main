@@ -4,7 +4,7 @@ import com.bulatmain.conference.application.model.UserRegistrationRequestData;
 import com.bulatmain.conference.application.port.UserGateway;
 import com.bulatmain.conference.application.usecase.UserRegistrationUC;
 import com.bulatmain.conference.application.usecase.impl.exception.*;
-import com.bulatmain.conference.domain.common.value.validator.Validator;
+import com.bulatmain.conference.domain.common.value.Validator;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 

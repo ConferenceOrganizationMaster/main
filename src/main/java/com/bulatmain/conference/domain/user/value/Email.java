@@ -1,7 +1,7 @@
 package com.bulatmain.conference.domain.user.value;
 
 import com.bulatmain.conference.domain.user.value.exception.IllegalEmailException;
-import com.bulatmain.conference.domain.common.value.validator.Validator;
+import com.bulatmain.conference.domain.common.value.Validator;
 import lombok.Getter;
 
 @Getter

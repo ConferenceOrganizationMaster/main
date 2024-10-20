@@ -1,6 +1,6 @@
 package com.bulatmain.conference.domain.user.value;
 
-import com.bulatmain.conference.domain.common.value.id.Id;
+import com.bulatmain.conference.domain.common.value.Id;
 
 public record UserId(Email email) implements Id {
     public String toString() {

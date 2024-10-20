@@ -1,6 +1,6 @@
 package com.bulatmain.conference.application.validator;
 
-import com.bulatmain.conference.domain.common.value.validator.Validator;
+import com.bulatmain.conference.domain.common.value.Validator;
 
 public class PhoneValidator implements Validator<String> {
     private final String patternRegex

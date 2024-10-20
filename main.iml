@@ -106,5 +106,10 @@
     <orderEntry type="library" scope="TEST" name="Maven: com.vaadin.external.google:android-json:0.0.20131108.vaadin1" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.springframework:spring-test:6.1.13" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.xmlunit:xmlunit-core:2.9.1" level="project" />
+    <orderEntry type="library" name="Maven: joda-time:joda-time:2.13.0" level="project" />
+    <orderEntry type="library" name="Maven: dev.mccue:guava-collect:33.2.0" level="project" />
+    <orderEntry type="library" name="Maven: dev.mccue:guava-base:33.2.0" level="project" />
+    <orderEntry type="library" name="Maven: dev.mccue:guava-math:33.2.0" level="project" />
+    <orderEntry type="library" name="Maven: dev.mccue:guava-primitives:33.2.0" level="project" />
   </component>
 </module>
