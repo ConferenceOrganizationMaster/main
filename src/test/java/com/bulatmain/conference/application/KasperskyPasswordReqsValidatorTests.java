@@ -2,7 +2,7 @@ package com.bulatmain.conference.application;
 
 
 import com.bulatmain.conference.application.validator.KasperskyPasswordReqsValidator;
-import com.bulatmain.conference.domain.common.value.validator.Validator;
+import com.bulatmain.conference.domain.common.value.Validator;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
