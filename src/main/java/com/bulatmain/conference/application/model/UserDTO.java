@@ -26,8 +26,10 @@ public class UserDTO {
         email = user.getEmail().getRecord();
         login = user.getLogin().getRecord();
         password = user.getPassword().getRecord();
-        name = user.getDetail().name().getName();
-        phone = user.getDetail().phone().getRecord();
+        if (user.getDetail() != null) {
+            name = user.getDetail().name().getName();
+            phone = user.getDetail().phone().getRecord();
+        }
         roles = user.getRoles()
                 .getCollection()
                 .stream()

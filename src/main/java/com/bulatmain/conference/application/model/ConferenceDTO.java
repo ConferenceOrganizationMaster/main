@@ -28,11 +28,13 @@ public class ConferenceDTO {
         id = conference.getId().toString();
         name = conference.getName();
         organizer = UserDTO.of(conference.getOrganizer());
-        subject = conference.getDetail().getSubject();
-        description = conference.getDetail().getDescription();
-        location = conference.getDetail().getLocation().toString();
-        startingDate = conference.getDetail().getStartingDate();
-        endingDate = conference.getDetail().getEndingDate();
+        if (conference.getDetail() != null) {
+            subject = conference.getDetail().getSubject();
+            description = conference.getDetail().getDescription();
+            location = conference.getDetail().getLocation().toString();
+            startingDate = conference.getDetail().getStartingDate();
+            endingDate = conference.getDetail().getEndingDate();
+        }
         status = conference.getStatus();
     }
 
