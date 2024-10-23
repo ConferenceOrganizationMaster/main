@@ -9,7 +9,7 @@ import lombok.Getter;
 public class LoginImpl implements Login {
     private final String record;
 
-    public Login build(String record, Validator<String> validator) throws InvalidLoginException {
+    public static Login build(String record, Validator<String> validator) throws InvalidLoginException {
         if (!validator.check(record)) {
             throw new InvalidLoginException(
                     String.format("Error: login %s does not match the conditions.", record)

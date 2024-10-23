@@ -1,6 +1,7 @@
 package com.bulatmain.conference.application.usecase.impl;
 
 import com.bulatmain.conference.application.factory.UserFactory;
+import com.bulatmain.conference.application.factory.exception.IllegalInputException;
 import com.bulatmain.conference.application.model.ConferenceDTO;
 import com.bulatmain.conference.application.model.ConferenceRegistrationRequestData;
 import com.bulatmain.conference.application.model.UserDTO;
@@ -26,8 +27,10 @@ public class ConferenceRegistrationUCImpl
 
     @Override
     public String execute(ConferenceRegistrationRequestData requestData) throws UseCaseException {
-        var confDTOOpt
-                = conferenceGateway.findByName(requestData.getName());
+        var confDTOOpt = conferenceGateway.findById(
+                requestData.getOrganizerEmail(),
+                requestData.getName()
+        );
         if (confDTOOpt.isPresent()) {
             throwAndLogFormatMessage(
                 ConferenceAlreadyExistsException.class,
@@ -57,7 +60,15 @@ public class ConferenceRegistrationUCImpl
                     email
             );
         }
-        return userFactory.build(userDTO.get());
+        try {
+            return userFactory.build(userDTO.get());
+        } catch (IllegalInputException e) {
+            throwAndLogMessage(
+                    UseCaseException.class,
+                    "Some illegal data been passed to user factory"
+            );
+        }
+        return null; // never gets here
     }
 
     private Conference buildConference(String name, User user) {

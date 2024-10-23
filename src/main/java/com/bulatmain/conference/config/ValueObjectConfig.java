@@ -1,11 +1,10 @@
-package com.bulatmain.conference.config.usecase;
+package com.bulatmain.conference.config;
 
-import com.bulatmain.conference.application.validator.DefaultLoginValidator;
-import com.bulatmain.conference.application.validator.EmailValidator;
-import com.bulatmain.conference.application.validator.KasperskyPasswordReqsValidator;
+import com.bulatmain.conference.application.validator.*;
 import com.bulatmain.conference.domain.user.value.Email;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.core.parameters.P;
 
 @Configuration
 public class ValueObjectConfig {
@@ -20,5 +19,15 @@ public class ValueObjectConfig {
     @Bean
     public KasperskyPasswordReqsValidator kasperskyPasswordReqsValidator() {
         return new KasperskyPasswordReqsValidator();
+    }
+
+    @Bean
+    public DefaultNameValidator defaultNameValidator() {
+        return new DefaultNameValidator();
+    }
+
+    @Bean
+    public PhoneValidator phoneValidator() {
+        return new PhoneValidator();
     }
 }

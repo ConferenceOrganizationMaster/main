@@ -1,7 +1,7 @@
 package com.bulatmain.conference.application.usecase.impl;
 
-import com.bulatmain.conference.application.KasperskyPasswordReqsValidatorTests;
 import com.bulatmain.conference.application.factory.UserFactory;
+import com.bulatmain.conference.application.factory.exception.IllegalInputException;
 import com.bulatmain.conference.application.model.ConferenceDTO;
 import com.bulatmain.conference.application.model.ConferenceRegistrationRequestData;
 import com.bulatmain.conference.application.model.UserDTO;
@@ -12,7 +12,6 @@ import com.bulatmain.conference.domain.user.value.Email;
 import com.bulatmain.conference.domain.user.value.Login;
 import com.bulatmain.conference.domain.user.value.Password;
 import com.bulatmain.conference.domain.user.value.UserId;
-import lombok.extern.java.Log;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -45,7 +44,7 @@ public class ConferenceRegistrationUCImplTest {
     }
 
     @Test
-    public void RegisterNewConferenceEmptyRepo_NoThrow() {
+    public void RegisterNewConferenceEmptyRepo_NoThrow() throws IllegalInputException {
         var requestData = requestDataExample1();
 
         var userDTO = userDTO(requestData);
@@ -76,7 +75,7 @@ public class ConferenceRegistrationUCImplTest {
                 .findUserByEmail(Mockito.anyString());
     }
 
-    private void mockUserFactory(User user) {
+    private void mockUserFactory(User user) throws IllegalInputException {
         Mockito.doReturn(user)
                 .when(userFactory)
                 .build(Mockito.any(UserDTO.class));

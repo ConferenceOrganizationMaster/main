@@ -9,7 +9,7 @@ import lombok.Getter;
 public class EmailImpl implements Email{
     private final String record;
 
-    public Email build(String record, Validator<String> validator) throws IllegalEmailException {
+    public static Email build(String record, Validator<String> validator) throws IllegalEmailException {
         if (validator.check(record)) {
             throw new IllegalEmailException(
                     String.format("Error: illegal email: %s.", record)

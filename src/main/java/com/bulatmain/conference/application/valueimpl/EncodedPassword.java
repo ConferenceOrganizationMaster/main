@@ -8,7 +8,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 //@Component
 public class EncodedPassword implements Password {
-    public static EncodedPassword build(String password, Validator<String> validator) {
+    public static EncodedPassword build(String password, Validator<String> validator) throws InvalidPasswordException {
         if (!validator.check(password)) {
             throw new InvalidPasswordException(
                     String.format("Error: password %s is not valid.", password)
