@@ -3,12 +3,16 @@ package com.bulatmain.conference.application.model;
 import com.bulatmain.conference.domain.common.value.Description;
 import com.bulatmain.conference.domain.conference.entity.Conference;
 import com.bulatmain.conference.domain.conference.value.ConferenceStatus;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.joda.time.DateTime;
 
 @Data
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class ConferenceDTO {
     String id;
     String name;

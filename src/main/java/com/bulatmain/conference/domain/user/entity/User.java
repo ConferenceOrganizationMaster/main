@@ -10,21 +10,14 @@ import com.bulatmain.conference.domain.user.value.role.Roles;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.List;
-
 @Getter
 @Setter
 public class User {
-    @Getter
     private final UserId id;
-    @Getter
     private Login login;
-    @Getter
     private Password password;
-    @Getter
     private UserDetail detail;
-    @Getter
-    private Roles roles;
+    private Roles roles = new Roles();
 
     public void addRole(Role role) {
         roles.add(role);
@@ -35,18 +28,13 @@ public class User {
     }
 
     public static User build(UserId id, Login login, Password password) {
-        return build(id, login, password, null);
+        return new User(id, login, password);
     }
 
-    public static User build(UserId id, Login login, Password password, UserDetail userDetail) {
-        return new User(id, login, password, userDetail);
-    }
-
-    private User(UserId id, Login login, Password password, UserDetail detail) {
+    private User(UserId id, Login login, Password password) {
         this.id = id;
         this.login = login;
         this.password = password;
-        this.detail = detail;
     }
 
     public Email getEmail() {

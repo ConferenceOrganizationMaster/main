@@ -1,4 +1,4 @@
-package com.bulatmain.conference.application;
+package com.bulatmain.conference.application.valueimpl;
 
 import com.bulatmain.conference.domain.user.value.Password;
 import com.bulatmain.conference.domain.user.value.exception.InvalidPasswordException;
@@ -21,6 +21,12 @@ public class EncodedPassword implements Password {
     public boolean sameAs(String raw) {
         return passwordEncoder.matches(raw, hash);
     }
+
+    @Override
+    public String getRecord() {
+        return hash;
+    }
+
     private final String hash;
     private static PasswordEncoder passwordEncoder;
 

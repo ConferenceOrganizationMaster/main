@@ -1,4 +1,4 @@
-package com.bulatmain.conference.config;
+package com.bulatmain.conference.config.usecase;
 
 import com.bulatmain.conference.application.usecase.UserRegistrationUC;
 import com.bulatmain.conference.application.usecase.impl.UserRegistrationUCImpl;
@@ -10,28 +10,20 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class UseCaseConfig {
+public class UserRegistrationUCConfig {
     @Bean
-    public UserRegistrationUC userRegistrationUC(UserRepository userRepository) {
+    public UserRegistrationUC userRegistrationUC(
+            UserRepository userRepository,
+            EmailValidator emailValidator,
+            DefaultLoginValidator loginValidator,
+            KasperskyPasswordReqsValidator kasperskyPasswordReqsValidator
+    ) {
         return new UserRegistrationUCImpl(
                 userRepository,
-                emailValidator(),
-                defaultLoginValidator(),
-                kasperskyPasswordReqsValidator()
+                emailValidator,
+                loginValidator,
+                kasperskyPasswordReqsValidator
         );
-    }
-
-    @Bean
-    public EmailValidator emailValidator() {
-        return new EmailValidator();
-    }
-    @Bean
-    public DefaultLoginValidator defaultLoginValidator() {
-        return new DefaultLoginValidator();
-    }
-    @Bean
-    public KasperskyPasswordReqsValidator kasperskyPasswordReqsValidator() {
-        return new KasperskyPasswordReqsValidator();
     }
 
 }

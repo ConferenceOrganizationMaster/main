@@ -20,15 +20,19 @@ public class UserDTO {
     String password;
     String name;
     String phone;
-    Collection<Role> roles;
+    Collection<RoleDTO> roles;
 
     public UserDTO(User user) {
-        email = user.getEmail().toString();
-        login = user.getLogin().toString();
-        password = user.getPassword().toString();
+        email = user.getEmail().getRecord();
+        login = user.getLogin().getRecord();
+        password = user.getPassword().getRecord();
         name = user.getDetail().name().getName();
         phone = user.getDetail().phone().getRecord();
-        roles = user.getRoles().getCollection();
+        roles = user.getRoles()
+                .getCollection()
+                .stream()
+                .map(RoleDTO::of)
+                .toList();
     }
 
     public static UserDTO of(User user) {
