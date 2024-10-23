@@ -4,5 +4,5 @@ import com.bulatmain.conference.application.model.ConferenceRegistrationRequestD
 import com.bulatmain.conference.application.usecase.impl.exception.UseCaseException;
 
 public interface ConferenceRegistrationUC {
-    void execute(ConferenceRegistrationRequestData requestData) throws UseCaseException;
+    String execute(ConferenceRegistrationRequestData requestData) throws UseCaseException;
 }

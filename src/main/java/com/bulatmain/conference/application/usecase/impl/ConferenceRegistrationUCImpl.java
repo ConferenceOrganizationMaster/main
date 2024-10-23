@@ -8,6 +8,7 @@ import com.bulatmain.conference.application.port.ConferenceGateway;
 import com.bulatmain.conference.application.port.UserGateway;
 import com.bulatmain.conference.application.usecase.ConferenceRegistrationUC;
 import com.bulatmain.conference.application.usecase.UseCase;
+import com.bulatmain.conference.application.usecase.impl.exception.ConferenceAlreadyExistsException;
 import com.bulatmain.conference.application.usecase.impl.exception.NoSuchUserException;
 import com.bulatmain.conference.application.usecase.impl.exception.UseCaseException;
 import com.bulatmain.conference.domain.conference.entity.Conference;
@@ -21,11 +22,20 @@ public class ConferenceRegistrationUCImpl
         implements ConferenceRegistrationUC {
     private final UserGateway userGateway;
     private final ConferenceGateway conferenceGateway;
-
     private final UserFactory userFactory;
 
     @Override
-    public void execute(ConferenceRegistrationRequestData requestData) throws UseCaseException {
+    public String execute(ConferenceRegistrationRequestData requestData) throws UseCaseException {
+        var confDTOOpt
+                = conferenceGateway.findByName(requestData.getName());
+        if (confDTOOpt.isPresent()) {
+            throwAndLogFormatMessage(
+                ConferenceAlreadyExistsException.class,
+                    "Error: conference with name %s already exists.",
+                    requestData.getName()
+            );
+        }
+
         var user = getUserByEmail(requestData.getOrganizerEmail());
         user.addRole(new Organizer());
         var conf = buildConference(
@@ -35,6 +45,7 @@ public class ConferenceRegistrationUCImpl
 
         userGateway.update(UserDTO.of(user));
         conferenceGateway.register(ConferenceDTO.of(conf));
+        return conf.getId().toString();
     }
 
     private User getUserByEmail(String email) throws UseCaseException {
