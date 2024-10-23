@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping(path = "api/v1/conference")
+@RequestMapping(path = "api/v1")
 @AllArgsConstructor
 public class UserController {
     @Autowired
@@ -26,6 +26,7 @@ public class UserController {
     }
 
     @PostMapping("/user")
+    // If OK returns an empty string, else error message
     public ResponseEntity<String> registerUser(@RequestBody UserRegistrationRequestData request) {
         try {
             userRegistrationUC.execute(request);
