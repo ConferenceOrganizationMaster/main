@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: account-config
+  namespace: default
+data:
+  PORT: "8080"
+  EVENT_TOPIC_NAME: "account-events"
+  EVENT_TOPIC_PARTITIONS_NUM: "1"
+  EVENT_TOPIC_REPLICATION_FACTOR: "1"
+

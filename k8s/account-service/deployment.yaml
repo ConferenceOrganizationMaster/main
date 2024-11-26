@@ -1,0 +1,93 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: account-service
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: account-service
+  template:
+    metadata:
+      labels:
+        app: account-service
+    spec:
+      containers:
+        - name: account-service
+          image: account-service:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080
+          env:
+            # From ConfigMap
+            - name: PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: account-config
+                  key: PORT
+            - name: EVENT_TOPIC_NAME
+              valueFrom:
+                configMapKeyRef:
+                  name: account-config
+                  key: EVENT_TOPIC_NAME
+            - name: EVENT_TOPIC_PARTITIONS_NUM
+              valueFrom:
+                configMapKeyRef:
+                  name: account-config
+                  key: EVENT_TOPIC_PARTITIONS_NUM
+            - name: EVENT_TOPIC_REPLICATION_FACTOR
+              valueFrom:
+                configMapKeyRef:
+                  name: account-config
+                  key: EVENT_TOPIC_REPLICATION_FACTOR
+            # From Secret
+            - name: MONGODB_URI
+              valueFrom:
+                secretKeyRef:
+                  name: account-secrets
+                  key: MONGODB_URI
+            - name: MONGODB_DATABASE
+              valueFrom:
+                secretKeyRef:
+                  name: account-secrets
+                  key: MONGODB_DATABASE
+            - name: KAFKA_BOOTSTRAP_SERVERS
+              valueFrom:
+                secretKeyRef:
+                  name: account-secrets
+                  key: KAFKA_BOOTSTRAP_SERVERS
+            - name: SR_URL
+              valueFrom:
+                secretKeyRef:
+                  name: account-secrets
+                  key: SR_URL
+            - name: CREDENTIALS_SOURCE
+              valueFrom:
+                secretKeyRef:
+                  name: account-secrets
+                  key: CREDENTIALS_SOURCE
+            - name: SR_USER_INFO
+              valueFrom:
+                secretKeyRef:
+                  name: account-secrets
+                  key: SR_USER_INFO
+          # readinessProbe:
+          #   httpGet:
+          #     path: /actuator/health
+          #     port: 8080
+          #   initialDelaySeconds: 10
+          #   periodSeconds: 5
+          # livenessProbe:
+          #   httpGet:
+          #     path: /actuator/health
+          #     port: 8080
+          #   initialDelaySeconds: 30
+          #   periodSeconds: 10
+          resources:
+            requests:
+              memory: "512Mi"
+              cpu: "500m"
+            limits:
+              memory: "1Gi"
+              cpu: "1"
