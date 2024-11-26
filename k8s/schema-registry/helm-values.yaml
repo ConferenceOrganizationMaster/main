@@ -1,0 +1,67 @@
+replicaCount: 1
+
+image:
+  repository: bitnami/schema-registry
+  tag: 7.7.1-debian-12-r1
+  pullPolicy: IfNotPresent
+
+resources:
+  requests:
+    memory: 512Mi
+    cpu: 500m
+  limits:
+    memory: 1Gi
+    cpu: 1
+
+service:
+  type: ClusterIP
+  port: 8081
+  annotations: {}
+
+schema-registry:
+  configurationOverrides:
+    schema-registry:
+      # Kafka broker to connect to
+      kafkastore.bootstrap.servers: PLAINTEXT://kafka-controller-0.kafka-controller-headless.default.svc.cluster.local:9092
+
+      # Schema topic configuration
+      kafkastore.topic: _schemas
+      kafkastore.topic.replication.factor: 1
+
+      # General settings
+      schema.registry.group.id: schema-registry
+      host.name: schema-registry
+      listener.security.protocol.map: PLAINTEXT:PLAINTEXT
+      listeners: PLAINTEXT://0.0.0.0:8081
+
+  persistence:
+    enabled: true
+    size: 5Gi
+    storageClass: standard  # Replace with your cluster's storage class, if needed
+    accessModes:
+      - ReadWriteOnce
+
+readinessProbe:
+  initialDelaySeconds: 60
+  periodSeconds: 10
+  timeoutSeconds: 5
+  failureThreshold: 5
+
+livenessProbe:
+  initialDelaySeconds: 60
+  periodSeconds: 10
+  timeoutSeconds: 5
+  failureThreshold: 5
+
+nodeSelector: {}
+tolerations: []
+affinity: {}
+
+# Logs for debugging
+extraEnvVars:
+  - name: SCHEMA_REGISTRY_LOG_LEVEL
+    value: "INFO"
+
+# Volume mount example if needed (optional)
+extraVolumes: []
+extraVolumeMounts: []
